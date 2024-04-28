@@ -1,0 +1,188 @@
+{{!-- css --}}
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="/css/audio_player.css">
+{{!-- main - page --}}
+<section class="section-01">
+    <div class="container d-flex w-90">
+        <div class="left-content w-50">
+            <div class="slide">
+                <div class="slide-show">
+                    <div class="head-banner">
+                        <span class="big-title d-block">Nhà văn của mọi thời đại</span>
+                        <span class="desc-head d-block">Hơn 300 tác phẩm bất hủ</span>
+                    </div>
+                    <div class="w-50 img-box">
+                        <img src="/img/home/slide.png" alt="">
+                    </div>
+
+                </div>
+                <div class="slide-items">
+                    <ul class="list-items d-flex">
+                        {{#each authors}}
+                        <li class="item">
+                            <div class="img-box">
+                                <img src="/img/author/{{this.avatar}}" alt="" class="img-item">
+                            </div>
+                            <span class="author-name">{{this.name}}</span>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="search-box d-flex">
+                <div class="typing fa-solid fa-magnifying-glass">
+                    <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                    <input type="search" name="" id="" placeholder="Search">
+                </div>
+                <div class="category select-option">
+                    <span class="title desc">Phân loại</span>
+                    <div class="btn-select  d-flex">
+                        <span class="main-title">Tất cả</span>
+                        <span class="btn-down fa-solid fa-chevron-down"></span>
+                    </div>
+
+                    <ul class="list-options">
+                        {{#each authors}}
+                        <li class="option">{{this.name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="century select-option">
+                    <span class="title desc">Thời đại</span>
+                    <div class="btn-select  d-flex">
+                        <span class="main-title">Tất cả</span>
+                        <span class="btn-down fa-solid fa-chevron-down"></span>
+                    </div>
+
+                    <ul class="list-options">
+                        {{#each authors}}
+                        <li class="option">{{this.generation}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="btn-go">
+                    <span>GO</span>
+                </div>
+            </div>
+            <div class="last-request-box">
+                <span class="desc">Tác phẩm nổi bật</span>
+                <ul class="list-requests">
+                    {{#each books}}
+                    <li class="rq-item">
+                        <div class="book">
+                            <span class="No desc">{{add1index @index 1}}</span>
+                            <img src="/img/covers/{{this.image}}" alt="" class="img-item">
+                            <span class="title main-title">{{this.name}}</span>
+                        </div>
+                        <span class="author main-title">{{this.author_name}}</span>
+                        <span class="icon-star fa-regular fa-star-half-stroke">
+                            <span class="desc">{{this.rating}}</span>
+                            <span class="rate desc">{{this.likes}}k Likes</span>
+                        </span>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="right-content w-50">
+            <div class="writer-zone">
+                <div class="topic_writer">
+                    <span class="main-topic d-block" id="pp-writer">Tác giả nổi bật</span>
+                    <div class="btn_s">
+                        <i class="bi-move bi-arrow-left"></i>
+                        <i class="bi-move bi-arrow-right"></i>
+                    </div>
+                </div>
+                <ul class="list-writers d-flex">
+                    {{#each authors}}
+                    <li class="writer-item">
+                        <div class="img-box"><img src="/img/author/{{this.avatar}}" alt="" class="avt"></div>
+                        <span class="name main-title">{{this.name}}</span>
+                        <span class="icon-star fa-regular fa-star-half-stroke">
+                            <span class="desc">{{this.rating}}</span>
+                            <span class="rate desc">{{this.total_likes}}k Likes</span>
+                        </span>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="book-zone">
+                <span class="main-topic">Gợi ý đọc</span>
+                <div class="book-lists d-flex">
+                    {{#each books}}
+                    <div class="book-item" data-book="">
+                        <div class="img-box">
+                            <img src="/img/covers/{{this.image}}" alt="" class="book-img">
+                            <div class="feature">
+                                <span  onclick="window.location.href='/bookmark_reading/{{this.id}}'" class="action-read fa-brands fa-readme"></span>
+                                <span class="action-listen fa-solid fa-headphones-simple btn-listen" data-id="{{this.id}}"></span>      
+                            </div>
+                        </div>
+                        <span class="author desc">{{this.author_name}}</span>
+                        <span class="name main-title">{{this.name}}</span>
+                        <span class="icon-star fa-regular fa-star-half-stroke">
+                            <span class="desc">{{this.rating}}</span>
+                            <span class="rate desc">{{this.likes}}k Likes</span>
+                        </span>
+
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="audio-player">
+    <!-- Tracks used in this music/audio player application are free to use. I downloaded them from Soundcloud and NCS websites. I am not the owner of these tracks. -->
+    <div id="app-cover">
+        <div id="player">
+            <div id="player-track">
+                <div id="album-name"></div>
+                <div id="track-name"></div>
+                <div id="track-time">
+                    <div id="current-time"></div>
+                    <div id="track-length"></div>
+                </div>
+                <div id="s-area">
+                    <div id="ins-time"></div>
+                    <div id="s-hover"></div>
+                    <div id="seek-bar"></div>
+                </div>
+            </div>
+            <div id="player-content">
+                <div id="album-art">
+
+                    <img src="/img/covers/ChiPheo-NamCao.png" class="active" id="_1">
+
+
+
+                    <div id="buffer-box">Buffering ...</div>
+                </div>
+                <!-- <div class="player-option">
+
+                </div> -->
+                <div id="player-controls">
+                    <div class="control">
+                        <div class="button" id="play-previous">
+                            <i class="fas fa-backward"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-pause-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-next">
+                            <i class="fas fa-forward"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/home.js"></script> 
+<script src="/js/audio_player.js"></script>

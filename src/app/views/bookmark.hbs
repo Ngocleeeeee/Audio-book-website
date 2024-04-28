@@ -1,0 +1,210 @@
+{{!-- css --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="/css/bookmark.css">
+<link rel="stylesheet" href="/css/audio_player.css">
+
+
+{{!-- main - page --}}
+<section class="section-banner">
+    <div class="container d-flex">
+        <div class="swiper slide-books w-30">
+            <span class="main-tille">Sách nổi bật</span>
+            <ul class="list-books d-flex swiper-wrapper">
+                {{#each books}}
+                <li class="book-item swiper-slide " data-book="">
+                    {{#if this.images}}
+                        <div class="img-box"><img src="{{this.images}}" alt="" class="w-100"></div>
+                    {{else}}
+                        <a href="http://localhost:8888/bookmark_reading/{{this.id}}">
+                        <div class="img-box"><img src="/img/covers/{{this.image}}" alt="" class="w-100"></div>
+                    {{/if}}
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+            <div class="swiper-button-next" style="color: #E50914 ;"></div>
+            <div class="swiper-button-prev" style="color: #E50914 ;"></div>
+        </div>
+
+
+        <div class="infor-books slide-infor-books w-60">
+            <ul class="menu-info  d-flex">
+                <li class="info-item">Mô tả</li>
+                <li class="info-item">Tác giả</li>
+                <li class="info-item">Đánh giá</li>
+            </ul>
+            <div thumbsSlider="" class="swiper-wrapper">
+                {{#each books}}
+                <div class="infor-box swiper-slide ">
+                    <div class="slide-box d-flex">
+                        <div class="board-infor w-60">
+                            <div class="desc">
+                                <span class="book-name">{{this.name}}</span>
+                                <div class="aside-infor">
+                                    <span class="year"><i class="fa-solid fa-thumbs-up"></i>2019</span>
+                                    <span class="age-allow">Thể loại: {{this.the_loai}}</span>
+                                    <span class="length">Số trang: {{this.so_trang}}</span>
+                                </div>
+                                <div class="language">
+
+                                    <span><i class="fa-solid fa-earth-americas" style="margin-right:.5rem ;"></i>Ngôn
+                                        ngữ:
+                                        Tiếng Việt</span>
+                                </div>
+                                <p class="summary" onclick="(() => { var ele = this; ele.classList.toggle('expanded'); })()">
+                                    {{this.description}}
+                                </p>
+                                <div class="btn-action">
+                                    <a href="http://localhost:8888/bookmark_reading/{{this.id}}">
+                                        <button class="btn-read"><i class="fa-solid fa-book-open-reader"></i>Đọc
+                                            ngay</button>
+                                    </a>
+                                    <button class="btn-add"><i class="fa-solid fa-plus"></i>Thêm vào danh sách</button>
+                                    <button class="btn-like"><i class="fa-solid fa-thumbs-up"></i></button>
+                                </div>
+                                <article class="about_author">
+                                    <span class="main-title"
+                                        style="margin:1rem 0; display: block;">{{this.author_name}}</span>
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                        Nobis voluptatibus enim, perferendis in fuga excepturi,
+                                        fugit similique illo dicta, maiores vel laborum animi quasi
+                                        facere consequatur sit veritatis asperiores qui.
+                                    </p>
+                                    <a class="read-more d-block" href="#">Read more ...</a>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="author-ava w-40">
+                            <img src="/img/home01/png/1.png" alt="" class="w-100">
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-main">
+    <div class="container">
+        <span class="big-main-title">Thư viện</span>
+        <div class="search-box d-flex">
+            <div class="typing fa-solid fa-magnifying-glass">
+                <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                <input type="search" name="" id="" placeholder="Search">
+            </div>
+            <div class="category select-option">
+                <span class="title desc">Phân loại</span>
+                <div class="btn-select  d-flex">
+                    <span class="main-title">Tất cả</span>
+                    <span class="btn-down fa-solid fa-chevron-down"></span>
+                </div>
+
+                <ul class="list-options">
+                    {{#each authors}}
+                    <li class="option">{{this.name}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="century select-option">
+                <span class="title desc">Thời đại</span>
+                <div class="btn-select  d-flex">
+                    <span class="main-title">Tất cả</span>
+                    <span class="btn-down fa-solid fa-chevron-down"></span>
+                </div>
+
+                <ul class="list-options">
+                    {{#each authors}}
+                    <li class="option">{{this.generation}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="btn-go">
+                <span>GO</span>
+            </div>
+        </div>
+        <div class="book-lists d-flex">
+            {{#each books}}
+            <div class="book-item" data-book="">
+                {{#if this.images}}
+                    <div class="img-box"><img src="{{this.images}}" alt="" class="w-100"></div>
+                    <div class="btn-listen" data-api="{{json this}}">
+                {{else}}
+                    <div class="img-box">
+                        <img src="/img/covers/{{this.image}}" alt="" class="book-img">
+                    </div>
+                    <div class="btn-listen" data-id="{{this.id}}">
+                {{/if}}
+                        <span class="fa-regular fa-circle-play"></span>
+                    </div>
+                <span class="author desc">{{this.author_name}}</span>
+                <span class="name main-title">{{this.name}}</span>
+                <span class="icon-star fa-regular fa-star-half-stroke">
+                    <span class="rate desc">{{this.likes}}k Likes</span>
+                </span>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<div class="audio-player">
+    <!-- Tracks used in this music/audio player application are free to use. I downloaded them from Soundcloud and NCS websites. I am not the owner of these tracks. -->
+    <div id="app-cover">
+        <div id="player">
+            <div id="player-track">
+                <div id="album-name"></div>
+                <div id="track-name"></div>
+                <div id="track-time">
+                    <div id="current-time"></div>
+                    <div id="track-length"></div>
+                </div>
+                <div id="s-area">
+                    <div id="ins-time"></div>
+                    <div id="s-hover"></div>
+                    <div id="seek-bar"></div>
+                </div>
+            </div>
+            <div id="player-content">
+                <div id="album-art">
+
+                    <img src="/img/covers/ChiPheo-NamCao.png" class="active" id="_1">
+
+
+
+                    <div id="buffer-box">Buffering ...</div>
+                </div>
+                <!-- <div class="player-option">
+
+                </div> -->
+                <div id="player-controls">
+                    <div class="control">
+                        <div class="button" id="play-previous">
+                            <i class="fas fa-backward"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-pause-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-next">
+                            <i class="fas fa-forward"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jquery -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+{{!-- script --}}
+<script src="/js/bookmark.js"></script>
+<script src="/js/audio_player.js"></script>

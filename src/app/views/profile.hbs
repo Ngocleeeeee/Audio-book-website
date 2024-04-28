@@ -1,0 +1,376 @@
+{{!-- css --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+{{!-- bootstrap --}}
+<!-- bootstrap  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" href="/css/audio_book.css">
+<link rel="stylesheet" href="/css/audio_player.css">
+
+
+<section class="section-banner" style="margin-bottom: 10rem;">
+    <div class="container " style="height: 20rem;">
+        <div class="position-relative w-100">
+            {{#each user}}
+            <div class="position-absolute d-flex align-items-center w-100" style="left: 0; bottom: -50%;right: 0;">
+                <div class="rounded-circle border border-2 border-white" style="height: 12rem;width: 12rem;overflow: hidden;">
+                    <img src="/img/ava.png" alt="AVATAR" class="w-100 h-100" style="object-fit: cover;" />
+                </div>
+                <div style="margin-left: 2rem; margin-top: 4rem;">
+                    <h2>{{this.username}}</h2>
+                    <span style="color: #bebebead;">Creator</span>
+                </div>
+            </div>
+             {{/each}}
+        </div>
+    </div>
+</section>
+
+<section class="section-trend">
+    <div class="container w-80">
+        <div class="top-trend w-100 ">
+            <div class="title">Sách nói đã tạo</div>
+            <div class="trend-slides swiper">
+                <div class="list-books swiper-wrapper">
+                    {{#each books}}
+                    <div class="book-item swiper-slide">
+                        <div class="book-cover"  style="overflow: hidden;">
+                            <img src="/img/covers/{{this.image}}" alt="" class="w-100 h-100 object-fit-contain">        
+                            <span class="rank">
+                                <span class="fa-solid fa-ranking-star"></span>
+                                <span>{{add1index @index 1}}</span>
+                            </span>
+                            <span data-id="{{this.id}}"
+                                data-toggle="modal"
+                                data-target="#detailsInforModal"
+                             class="action-more fa-solid fa-ellipsis">
+                            </span>
+                            <span class="action-listen fa-regular fa-circle-play"  
+                               
+                            data-id="{{this.id}}">
+                            </span>
+                        </div>
+                        <div class="book-name">{{this.name}}</div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-studio">
+    <div class="container w-80">
+        <div class="input w-70">
+            <div class="title">Tạo ra sách nói của bạn</div>
+            <div class="list-step d-flex">
+                <div class="step-upload w-50">
+                    <span class="d-block" style="margin-bottom: .5rem;">Bước 1: Chọn đầu vào (1 trong 2 cách)</span>
+                    <div class="list-op-upload">
+                        <div class="op-file" style="margin-bottom: 1rem; ">
+                            <span class="italic-desc">(Định dạng file: .pdf, .docx, .txt)</span>
+                            <div class="d-flex confirm-box" style="align-items: center;">
+                                <input type="radio" id="1" name="upload" style="margin-right: 1rem;" value="1" checked>
+                                <div class="input-group bx-border-box able " disabled>
+                                    <div class="custom-file bx-border-box input-option">
+                                        <input type="file" class="custom-file-input bx-border-box"
+                                            id="inputGroupFile04">
+                                        <label class="custom-file-label bx-border-box" for="inputGroupFile04">Chọn
+                                            file</label>
+                                    </div>
+                                    <div class="input-group-append bx-border-box">
+                                        <button class="btn btn-outline-secondary bx-border-box btn-confirm"
+                                            type="button">Xác
+                                            nhận</button>
+                                    </div>
+                                </div>
+                                <span class="fa-solid fa-circle-check icon-check" style="margin-left: 1rem;"></span>
+                            </div>
+
+                        </div>
+                        <div class="op-text">
+                            <span class="italic-desc d-block">(Nhập vào văn bản của bạn: nhập ở phần phía
+                                dưới)</span>
+                            <div class="d-flex instance-box confirm-box" style="align-items: center;">
+                                <input type="radio" id="2" name="upload" style="margin-right: 1rem;" value="2">
+                                <button type="button" class="btn btn-warning able"
+                                    style="background-color:#c8b197 ; border: none;">Nhập văn bản</button>
+                                <span class="fa-solid fa-circle-check icon-check" style="margin-left: 1rem;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-options w-50">
+                    <span class="d-block" style="margin-bottom: .5rem;">Bước 2: Lựa chọn cài đặt giọng nói</span>
+                    <div class="list-op">
+                        <div class="op-voice" style="margin-bottom: 1rem;">
+                            <span class="italic-desc">*Giọng đọc</span>
+                            <div class="d-flex confirm-box" style="align-items: center;">
+                                <div class="input-group bx-border-box">
+                                    <select class="custom-select bx-border-box input-option" id="inputGroupSelect04">
+                                        <option selected value="null">Chọn giọng đọc...</option>
+                                        <option value="banmai">Ban mai (Nữ miền Bắc)</option>
+                                        <option value="lannhi">Lan nhi (Nữ miền Nam)</option>
+                                        <option value="leminh">Lê Minh (Nam miền Bắc)</option>
+                                        <option value="myan">Mỹ An (Nữ miền Trung)</option>
+                                        <option value="giahuy">Gia Huy (Nam miền Trung)</option>
+                                        <option value="linhsan">Linh San (Nữ miền Nam)</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary btn-confirm" type="button">Xác
+                                            nhận</button>
+                                    </div>
+                                </div>
+                                <span class="fa-solid fa-circle-check icon-check" style="margin-left: 1rem;"></span>
+                            </div>
+                        </div>
+                        <div class="op-speed " style="margin-bottom: 1rem;">
+                            <span class="italic-desc">*Tốc độ</span>
+                            <div class="input-group bx-border-box">
+                                <input type="range" value="0" min="-3" max="3" step="0.5"
+                                    oninput="this.nextElementSibling.value = this.value" style="accent-color:#c8b197;">
+                                <output>0</output>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action d-flex">
+                        <div class="try-listen" style="margin-right: 1.5rem;">
+                            <button type="button" class="btn btn-info"
+                                style="display: flex;align-items: center; background-color:#c8b197 ; border: none; color: #000;">
+                                Nghe thử
+                                <span class="fa-solid fa-volume-high" style="margin-left: .4rem; color: #000"></span>
+                            </button>
+                        </div>
+                        <div class="excute-audio">
+                            <button type="button" class="btn btn-warning">Tạo bản ghi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="instance italic-desc">
+                *Hướng dẫn:
+                <br />1. Bước 1 Để tạo ra sách của bạn trước hết trong bước 1 chọn 1 trong 2 lựa chọn hoặc là file dạng
+                text, pdf,
+                docx hay bạn có thể nhập vào văn bản bạn muốn chuyển thể (cách này thời gian chuyển đổi sẽ ngắn hơn).
+                <br />2. Bước 2 chọn loại giọng đọc bạn muốn, nếu không chọn sẽ mặc định là giọng Ban Mai - Nữ miền bắc,
+                <br />3. Kéo để điều chỉnh tốc độ đọc, càng cao đọc càng nhanh. Nếu muốn nghe thử 1 đoạn 1 khoảng 15s
+                chọn nghe thử.
+                <br />4. Khi ấn Tạo bản ghi, bản ghi của bạn sẽ được hiển thị phía bên tay phải.
+            </div>
+        </div>
+        <div class="output w-30">
+            <div class="title">Kết quả</div>
+            <div class="audio-res" style="margin-bottom: 1rem;">
+                <span class="d-block" style="margin-bottom: 1rem;">Bản ghi của bạn</span>
+                <audio controls autoplay controls src="">
+                    <a href="">
+                        Download audio
+                    </a>
+                </audio>
+            </div>
+            <div class="action d-flex" style="margin-bottom: 1rem;">
+                <div class="on-air" style="margin-right: 1.5rem;">
+                    <button type="button" class="btn btn-primary"
+                        style="background-color:#c8b197 ; border: none; color: #000;">Nghe trên cửa sổ</button>
+                </div>
+                <div class="add-list">
+                    <button type="button" class="btn btn-danger">Thêm vào playlist</button>
+                </div>
+            </div>
+            <div class="details">
+                <div class="sub-title">*Thông tin cơ bản</div>
+                <div class="book-name italic-desc">
+                    - Tên sách: user_book
+                </div>
+                <div class="author italic-desc">
+                    - Tác giả: user
+                </div>
+                <button type="button" class="btn btn-info mt-3" id="btnFillInfo" data-toggle="modal"
+                    data-target="#detailsInforModal">Cập nhật thông tin sách</button>
+                {{!-- <a href="#" style="color:#c8b197; text-decoration: underline;">Nhập thông tin chi tiết</a> --}}
+            </div>
+        </div>
+        <div class="pending w-30">
+            <div class="img">
+                <img src="/img/audio_book/pending2.gif" alt="" class="w-100 h-100">
+            </div>
+            <div class="desc" style="text-align: center; 
+                font-size: 1.3rem; color:#cf9923; font-weight: bolder;">
+                Bạn chưa tạo bản ghi !!!
+                <div class="sub" style="margin: 2rem 0;font-style: italic; font-weight:lighter">
+                    👈Tạo bản ghi bằng cách nhập các thông số bên trái
+                </div>
+            </div>
+        </div>
+
+        <div class="loading w-30">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="desc" style="margin-top: 1.2rem;">Đang xử lý audio, vui lòng chờ ...</div>
+        </div>
+    </div>
+</section>
+
+<section class="section-editer">
+    <div class="container w-80">
+        <div class="title">Nhập vào văn bản của bạn</div>
+        <div class="text-area">
+            <textarea name="" id="" class="input-option" placeholder="Nhập văn bản muốn chuyển đổi ở đây"></textarea>
+        </div>
+        <div class="action d-flex justify-content-center">
+            <div class="d-flex confirm-box" style="align-items: center;">
+                <button type="button" class="btn btn-warning btn-confirm-text">Xác nhận</button>
+                <span class="fa-solid fa-circle-check icon-check" style="margin-left: 1rem;"></span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="detailsInforModal" tabindex="-1" role="dialog" aria-labelledby="detailsInforModalTitle"
+    aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color:#000;font-weight: bolder;">Thông tin sách của bạn</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="color:red; font-size: 1.5rem;" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div class="form-group col-12" style="margin-bottom: 2rem;">
+                    <label for="imgInp" style="color:#000">Ảnh bìa</label>
+                    <div class="d-flex align-items-center">
+                        <input accept="image/*" type="file"  id="imgInp" class="w-50 form-control" style="margin-bottom: 1rem;margin-right: 3rem;"/>
+                        <div class="w-25" style="height:10rem;">
+                            <img id="blah" src="/img/covers/null.png" alt="your image" class="w-100 h-100 object-fit-cover"/>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="form-group col-md-3">
+                    <label for="inputType" style="color:#000">Kiểu đầu vào</label>
+                    <input type="text" class="form-control" id="inputType" value="Nhập văn bản" readonly/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="voice" style="color:#000">Giọng đọc</label>
+                    <input type="text" class="form-control" id="voice" value="Ban mai" readonly/>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="speed" style="color:#000">Tốc độ</label>
+                    <input type="text" class="form-control" id="speed" value="0" readonly/>
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="bookName" style="color:#000">Tên sách</label>
+                    <input type="text" class="form-control" id="bookName" placeholder="Tên sách" />
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="author" style="color:#000">Tên tác giả</label>
+                    <input type="text" class="form-control" id="author" placeholder="user_name" readonly/>
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="urlLink" style="color:#000">Download link</label>
+                    <input type="text" class="form-control" id="urlLink" placeholder="link url" readonly/>
+                </div>
+                <div class="form-group col-md-10 d-none">
+                    <input type="text" class="form-control" id="bookID" placeholder="link url" readonly/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnDeleteBook">Xóa</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="btnAddBook">Thêm</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="saveDetails">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Audio player --}}
+<div class="audio-player">
+    <!-- Tracks used in this music/audio player application are free to use. I downloaded them from Soundcloud and NCS websites. I am not the owner of these tracks. -->
+    <div id="app-cover">
+        <div id="player">
+            <div id="player-track">
+                <div id="album-name"></div>
+                <div id="track-name"></div>
+                <div id="track-time">
+                    <div id="current-time"></div>
+                    <div id="track-length"></div>
+                </div>
+                <div id="s-area">
+                    <div id="ins-time"></div>
+                    <div id="s-hover"></div>
+                    <div id="seek-bar"></div>
+                </div>
+            </div>
+            <div id="player-content">
+                <div id="album-art">
+                    <img src="/img/covers/ChiPheo-NamCao.png" class="active" id="_1">
+                    <div id="buffer-box">Buffering ...</div>
+                </div>
+                <!-- <div class="player-option">
+
+                </div> -->
+                <div id="player-controls">
+                    <div class="control">
+                        <div class="button" id="play-previous">
+                            <i class="fas fa-backward"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-pause-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="button" id="play-next">
+                            <i class="fas fa-forward"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jquery -->
+{{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> --}}
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+{{!-- <script type="module">
+      import Crunker from 'https://unpkg.com/crunker@latest/dist/crunker.esm.js';
+</script> --}}
+{{!-- <script type="module" src="https://unpkg.com/crunker@latest/dist/crunker.esm.js"></script> --}}
+<script src="/js/lib/pdf.min.js"></script>
+<script type="module" src="/js/audio_book_profile.js"></script>
+<script src="/js/audio_player.js"></script>
+
+
+
+<!-- tranfer pdf to text lib -->
+
+{{!-- concat audio  --}}
+

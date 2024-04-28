@@ -1,0 +1,27 @@
+{
+  "name": "nckh-sachnoi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "3d-flip-book": "^1.9.9",
+    "axios": "^1.3.4",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-handlebars": "^6.0.6",
+    "mysql": "^2.18.1",
+    "pdfjs-dist": "^3.5.141"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
